@@ -26,7 +26,7 @@ const AssignRole = () => {
     }
 
     axios
-      .put(`http://localhost:8080/api/admin/assignRole/${userid}`, {
+      .put(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/assignRole/${userid}`, {
         role,
       })
       .then((response) => {

@@ -16,7 +16,7 @@ const CreateClient = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/clients")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients")
       .then((response) => {
         const nextClientId = response.data.length + 1;
         console.log("Next Client ID:", nextClientId);
@@ -54,7 +54,7 @@ const CreateClient = () => {
     }
 
     axios
-      .post("http://localhost:8080/api/clients", formData)
+      .post("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients", formData)
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("Client created successfully!");

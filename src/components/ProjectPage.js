@@ -25,7 +25,7 @@ const ProjectPage = () => {
   const { user } = location.state || {};
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/projects")
+    fetch("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects")
       .then((response) => response.json())
       .then((data) => {
         let filteredProjects = data;

@@ -19,7 +19,7 @@ const LoginPage = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/login?email=${encodeURIComponent(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/login?email=${encodeURIComponent(
           email
         )}&password=${encodeURIComponent(password)}`,
         {

@@ -95,8 +95,8 @@ const UpdateTaskStatus = () => {
     const fetchTasksAndMilestones = async () => {
       try {
         const [tasksResponse, milestonesResponse] = await Promise.all([
-          fetch(`http://localhost:8080/api/tasks/user/${user.userId}`),
-          fetch(`http://localhost:8080/api/milestones`),
+          fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/user/${user.userId}`),
+          fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones`),
         ]);
 
         if (tasksResponse.ok && milestonesResponse.ok) {
@@ -126,7 +126,7 @@ const UpdateTaskStatus = () => {
     setTasks(updatedTasks);
 
     try {
-      await fetch(`http://localhost:8080/api/tasks/${task.taskId}`, {
+      await fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${task.taskId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const UpdateTaskStatus = () => {
 
   const handleCreateMilestone = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/milestones`, {
+      const response = await fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -170,7 +170,7 @@ const UpdateTaskStatus = () => {
   const updateMilestoneName = async (milestoneId, newName, newDescription) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/milestones/${milestoneId}`,
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones/${milestoneId}`,
         {
           method: "PUT",
           headers: {

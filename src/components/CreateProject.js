@@ -21,7 +21,7 @@ const CreateProject = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/projects")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects")
       .then((response) => {
         const nextProjectId = response.data.length + 1;
         console.log("Next Project ID:", nextProjectId);
@@ -39,7 +39,7 @@ const CreateProject = () => {
       });
 
     axios
-      .get("http://localhost:8080/api/clients")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients")
       .then((response) => {
         setClients(response.data);
       })
@@ -51,7 +51,7 @@ const CreateProject = () => {
       });
 
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
       .then((response) => {
         const filteredManagers = response.data.filter(
           (user) =>
@@ -118,7 +118,7 @@ const CreateProject = () => {
 
     axios
       .post(
-        `http://localhost:8080/api/projects?teamName=${encodeURIComponent(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects?teamName=${encodeURIComponent(
           teamName
         )}`,
         projectData

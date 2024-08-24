@@ -24,7 +24,7 @@ const PasswordResetPage = () => {
     }
 
     axios
-      .post("http://localhost:8080/api/requestPasswordReset", { email })
+      .post("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/requestPasswordReset", { email })
       .then((response) => {
         alert("A token has been sent to your email.");
         setStep(2);
@@ -47,7 +47,7 @@ const PasswordResetPage = () => {
     }
 
     axios
-      .post("http://localhost:8080/api/resetPassword", {
+      .post("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/resetPassword", {
         token,
         newPassword,
         confirmPassword,

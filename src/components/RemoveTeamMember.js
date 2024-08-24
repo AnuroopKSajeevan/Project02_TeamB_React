@@ -16,14 +16,14 @@ const RemoveTeamMember = () => {
   useEffect(() => {
     if (projectId) {
       axios
-        .get(`http://localhost:8080/api/teams/project/${projectId}`)
+        .get(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams/project/${projectId}`)
         .then((response) => {
           const team = response.data;
           if (team) {
             setTeamName(team.teamName);
             setTeamId(team.teamId);
             axios
-              .get(`http://localhost:8080/api/teamMember?teamId=${team.teamId}`)
+              .get(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?teamId=${team.teamId}`)
               .then((response) => {
                 const users = response.data.map((member) => ({
                   userId: member.user.userId,
@@ -61,7 +61,7 @@ const RemoveTeamMember = () => {
     if (teamId && userId) {
       axios
         .delete(
-          `http://localhost:8080/api/teamMember?userId=${userId}&teamId=${teamId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?userId=${userId}&teamId=${teamId}`
         )
         .then((response) => {
           console.log("Team member removed successfully:", response.data);
@@ -70,7 +70,7 @@ const RemoveTeamMember = () => {
             prevUsers.filter((user) => user.userId !== userId)
           );
 
-          return axios.patch(`http://localhost:8080/api/users/${userId}`, {
+          return axios.patch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/users/${userId}`, {
             managerId: 0,
           });
         })

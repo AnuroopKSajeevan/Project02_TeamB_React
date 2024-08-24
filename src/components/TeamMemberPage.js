@@ -32,7 +32,7 @@ const TeamMemberPage = () => {
     const fetchDetails = async () => {
       try {
         const tasksResponse = await fetch(
-          `http://localhost:8080/api/tasks/user/${user.userId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/user/${user.userId}`
         );
         if (tasksResponse.ok) {
           const tasksData = await tasksResponse.json();
@@ -40,14 +40,14 @@ const TeamMemberPage = () => {
 
           if (tasksData.length > 0) {
             const projectResponse = await fetch(
-              `http://localhost:8080/api/projects/${tasksData[0].project.projectId}`
+              `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${tasksData[0].project.projectId}`
             );
             if (projectResponse.ok) {
               const projectData = await projectResponse.json();
               setProject(projectData);
 
               const clientResponse = await fetch(
-                `http://localhost:8080/api/clients/${projectData.client.clientId}`
+                `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients/${projectData.client.clientId}`
               );
               if (clientResponse.ok) {
                 const clientData = await clientResponse.json();

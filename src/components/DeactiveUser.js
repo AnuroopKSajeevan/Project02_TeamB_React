@@ -9,7 +9,7 @@ const DeactivateUser = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
       .then((response) => {
         const activeUsers = response.data.filter((user) => user.status === "ACTIVE");
         setUsers(activeUsers);
@@ -33,7 +33,7 @@ const DeactivateUser = () => {
     }
 
     axios
-      .put(`http://localhost:8080/api/admin/deactivateUser/${selectedUserId}`, { status: "INACTIVE" })
+      .put(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/deactivateUser/${selectedUserId}`, { status: "INACTIVE" })
       .then((response) => {
         alert("User deactivated successfully!");
         setSelectedUserId("");

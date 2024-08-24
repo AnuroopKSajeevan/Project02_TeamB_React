@@ -29,7 +29,7 @@ const TaskMilestoneChart = () => {
     const fetchProjectDetails = async () => {
       try {
         const projectResponse = await axios.get(
-          `http://localhost:8080/api/projects/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
         );
         setProjectName(projectResponse.data.projectName);
       } catch (error) {
@@ -40,7 +40,7 @@ const TaskMilestoneChart = () => {
     const fetchTasks = async () => {
       try {
         const tasksResponse = await axios.get(
-          `http://localhost:8080/api/tasks/project/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
         );
         setTaskData(tasksResponse.data);
       } catch (error) {

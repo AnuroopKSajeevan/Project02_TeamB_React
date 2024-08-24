@@ -11,7 +11,7 @@ const UserDetails = () => {
   useEffect(() => {
     
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
       .then((response) => {
         setUsers(response.data); 
       })
@@ -36,7 +36,7 @@ const UserDetails = () => {
     }
 
     axios
-      .get(`http://localhost:8080/api/admin/users/${selectedUserId}`)
+      .get(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users/${selectedUserId}`)
       .then((response) => {
         if (response.data) {
           setUser(response.data); 

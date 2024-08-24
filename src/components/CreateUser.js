@@ -20,7 +20,7 @@ const CreateUser = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
       .then((response) => {
         const nextUserId = response.data.length + 1;
         console.log("Next User ID:", nextUserId);
@@ -52,7 +52,7 @@ const CreateUser = () => {
     }
 
     axios
-      .post("http://localhost:8080/api/admin/registration", formData)
+      .post("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/registration", formData)
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("User created successfully!");

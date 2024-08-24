@@ -23,7 +23,7 @@ const UpdateTask = () => {
     const fetchProject = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/projects/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
         );
         const data = await response.json();
         setProject(data);
@@ -35,7 +35,7 @@ const UpdateTask = () => {
     const fetchTasks = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/tasks/project/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
         );
         const data = await response.json();
         setTasks(Array.isArray(data) ? data : []);
@@ -46,7 +46,7 @@ const UpdateTask = () => {
 
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/admin/users");
+        const response = await fetch("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users");
         const data = await response.json();
         setUsers(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -56,7 +56,7 @@ const UpdateTask = () => {
 
     const fetchMilestones = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/milestones");
+        const response = await fetch("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones");
         const data = await response.json();
         setMilestones(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -111,7 +111,7 @@ const UpdateTask = () => {
       };
 
       const response = await fetch(
-        `http://localhost:8080/api/tasks/manager/${selectedTask}`,
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/manager/${selectedTask}`,
         {
           method: "PUT",
           headers: {

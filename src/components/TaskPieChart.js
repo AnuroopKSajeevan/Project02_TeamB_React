@@ -15,7 +15,7 @@ const TaskPieChart = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/milestones")
+      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones")
       .then((response) => {
         const milestones = response.data;
         const milestoneNames = {};
@@ -26,7 +26,7 @@ const TaskPieChart = () => {
 
         setMilestoneNames(milestoneNames);
 
-        return axios.get("http://localhost:8080/api/tasks");
+        return axios.get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks");
       })
       .then((response) => {
         const tasks = response.data;
