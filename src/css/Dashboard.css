@@ -1,0 +1,119 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 25px;
+  padding: 20px;
+}
+
+.dashboardcard {
+  border-radius: 10px;
+  padding: 10px;
+  color: #070707;
+  text-align: center;
+  box-shadow: 0 8px 20px #124e66;
+  min-width: 200px;
+  height: 270px;
+  background-color: #9ACEEB; /* Updated to match design requirements */
+  transform: rotateY(90deg);
+  animation: flipIn 1s forwards;
+  position: relative;
+}
+
+.dashboardcard h3 {
+  margin: 0 0 5px 0;
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+}
+
+.dashboardcard p {
+  font-weight: 700;
+  font-size: 40px;
+  margin-top: 90px;
+  opacity: 0;
+  animation: popIn 0.5s ease-in-out forwards;
+  animation-delay: 0.7s;
+  font-family: "Roboto", sans-serif;
+}
+
+@keyframes flipIn {
+  0% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.details-table {
+  grid-column: span 3;
+  background-color: #f0f8ff; /* Light background for table */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for modern look */
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.details-table h3 {
+  margin-bottom: 15px;
+  font-family: "Roboto", sans-serif;
+}
+
+.details-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Roboto", sans-serif;
+}
+
+.details-table th,
+.details-table td {
+  border: 1px solid #124e66;
+  padding: 10px;
+  text-align: left;
+}
+
+.details-table th {
+  background-color: #124e66;
+  color: #ffffff;
+}
+
+.details-table td {
+  background-color: #e6f2ff; /* Updated to match design requirements */
+}
+
+.details-table button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #124e66;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: "Roboto", sans-serif;
+  transition: background-color 0.3s;
+  display: block; /* Ensure button spans the full width */
+  text-align: center; /* Center the text */
+}
+
+.details-table button:hover {
+  background-color: #083f4f;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

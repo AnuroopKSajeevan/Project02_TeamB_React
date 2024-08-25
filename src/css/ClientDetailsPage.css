@@ -1,0 +1,33 @@
+.client-details-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.client-details-table {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.client-details-header {
+  display: contents;
+  font-weight: bold;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+.client-details-body {
+  display: contents;
+}
+
+.client-details-row {
+  display: contents;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.client-details-row div {
+  padding: 5px;
+}
