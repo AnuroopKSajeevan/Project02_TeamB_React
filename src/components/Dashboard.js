@@ -22,13 +22,21 @@ const Dashboard = () => {
       try {
         const [projectsRes, usersRes, tasksRes, clientsRes, teamsRes] =
           await Promise.all([
-            fetch("http://localhost:8080/api/projects"),
-            fetch("http://localhost:8080/api/admin/users"),
+            fetch(
+              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects"
+            ),
+            fetch(
+              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+            ),
             fetch(
               "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net"
             ),
-            fetch("http://localhost:8080/api/clients"),
-            fetch("http://localhost:8080/api/teams"),
+            fetch(
+              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
+            ),
+            fetch(
+              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams"
+            ),
           ]);
 
         const projects = await projectsRes.json();
@@ -91,16 +99,24 @@ const Dashboard = () => {
       let res;
       switch (type) {
         case "projects":
-          res = await fetch("http://localhost:8080/api/projects");
+          res = await fetch(
+            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects"
+          );
           break;
         case "team":
-          res = await fetch("http://localhost:8080/api/teams");
+          res = await fetch(
+            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams"
+          );
           break;
         case "users":
-          res = await fetch("http://localhost:8080/api/admin/users");
+          res = await fetch(
+            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+          );
           break;
         case "clients":
-          res = await fetch("http://localhost:8080/api/clients");
+          res = await fetch(
+            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
+          );
           break;
         default:
           return;

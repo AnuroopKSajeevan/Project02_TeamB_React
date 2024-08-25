@@ -26,7 +26,9 @@ const CreateUser = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+      )
       .then((response) => {
         const nextUserId = response.data.length + 1;
         console.log("Next User ID:", nextUserId);
@@ -70,24 +72,44 @@ const CreateUser = () => {
   };
 
   const validateAndSubmitForm = () => {
-    const { userName, userRole, email, password, phone, specialization, dateOfJoining } =
-      formData;
+    const {
+      userName,
+      userRole,
+      email,
+      password,
+      phone,
+      specialization,
+      dateOfJoining,
+    } = formData;
     console.log("Form data before validation:", formData);
 
     // Check if any field is empty
-    if (!userName || !userRole || !email || !password || !phone || !specialization || !dateOfJoining) {
+    if (
+      !userName ||
+      !userRole ||
+      !email ||
+      !password ||
+      !phone ||
+      !specialization ||
+      !dateOfJoining
+    ) {
       alert("Please fill in all the required fields.");
       return;
     }
 
     // Validate password
     if (!validatePassword(password)) {
-      alert("Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _).");
+      alert(
+        "Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)."
+      );
       return;
     }
 
     axios
-      .post("http://localhost:8080/api/admin/registration", formData)
+      .post(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/registration",
+        formData
+      )
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("User created successfully!");
@@ -110,7 +132,9 @@ const CreateUser = () => {
     <div className="registration-form-container">
       <h2 className="registration-form-title">Create User</h2>
       <form id="userForm" className="registration-user-form">
-        <label htmlFor="userName" className="registration-form-label">Name:</label>
+        <label htmlFor="userName" className="registration-form-label">
+          Name:
+        </label>
         <input
           type="text"
           id="userName"
@@ -122,7 +146,9 @@ const CreateUser = () => {
         />
         <br className="registration-form-break" />
 
-        <label htmlFor="userRole" className="registration-form-label">Role:</label>
+        <label htmlFor="userRole" className="registration-form-label">
+          Role:
+        </label>
         <select
           id="userRole"
           name="userRole"
@@ -131,14 +157,24 @@ const CreateUser = () => {
           onChange={handleChange}
           required
         >
-          <option value="" className="registration-form-option">Select Role</option>
-          <option value="ADMIN" className="registration-form-option">ADMIN</option>
-          <option value="PROJECT_MANAGER" className="registration-form-option">PROJECT_MANAGER</option>
-          <option value="TEAM_MEMBER" className="registration-form-option">TEAM_MEMBER</option>
+          <option value="" className="registration-form-option">
+            Select Role
+          </option>
+          <option value="ADMIN" className="registration-form-option">
+            ADMIN
+          </option>
+          <option value="PROJECT_MANAGER" className="registration-form-option">
+            PROJECT_MANAGER
+          </option>
+          <option value="TEAM_MEMBER" className="registration-form-option">
+            TEAM_MEMBER
+          </option>
         </select>
         <br className="registration-form-break" />
 
-        <label htmlFor="email" className="registration-form-label">Email:</label>
+        <label htmlFor="email" className="registration-form-label">
+          Email:
+        </label>
         <input
           type="email"
           id="email"
@@ -150,7 +186,9 @@ const CreateUser = () => {
         />
         <br className="registration-form-break" />
 
-        <label htmlFor="password" className="registration-form-label">Password:</label>
+        <label htmlFor="password" className="registration-form-label">
+          Password:
+        </label>
         <input
           type="password"
           id="password"
@@ -163,7 +201,9 @@ const CreateUser = () => {
         <br className="registration-form-break" />
 
         <div className="password-requirements">
-          <p><strong>Password Requirements:</strong></p>
+          <p>
+            <strong>Password Requirements:</strong>
+          </p>
           <ul>
             <li className={passwordConstraints.length ? "fulfilled" : ""}>
               At least 7 characters long
@@ -175,12 +215,15 @@ const CreateUser = () => {
               Includes at least one digit
             </li>
             <li className={passwordConstraints.specialChar ? "fulfilled" : ""}>
-              Contains at least one special character: <strong>@</strong> or <strong>_</strong>
+              Contains at least one special character: <strong>@</strong> or{" "}
+              <strong>_</strong>
             </li>
           </ul>
         </div>
 
-        <label htmlFor="phone" className="registration-form-label">Phone:</label>
+        <label htmlFor="phone" className="registration-form-label">
+          Phone:
+        </label>
         <input
           type="tel"
           id="phone"
@@ -192,7 +235,9 @@ const CreateUser = () => {
         />
         <br className="registration-form-break" />
 
-        <label htmlFor="specialization" className="registration-form-label">Specialization:</label>
+        <label htmlFor="specialization" className="registration-form-label">
+          Specialization:
+        </label>
         <input
           type="text"
           id="specialization"
@@ -204,7 +249,9 @@ const CreateUser = () => {
         />
         <br className="registration-form-break" />
 
-        <label htmlFor="dateOfJoining" className="registration-form-label">Date of Joining:</label>
+        <label htmlFor="dateOfJoining" className="registration-form-label">
+          Date of Joining:
+        </label>
         <input
           type="date"
           id="dateOfJoining"

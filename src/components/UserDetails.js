@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../css/UserDetails.css"; 
+import "../css/UserDetails.css";
 
 const UserDetails = () => {
-  const [users, setUsers] = useState([]); 
-  const [selectedUserId, setSelectedUserId] = useState(""); 
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState("");
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+      )
       .then((response) => {
-        setUsers(response.data); 
+        setUsers(response.data);
       })
       .catch((error) => {
         console.error("There was an error fetching the users!", error);
@@ -23,7 +24,7 @@ const UserDetails = () => {
 
   const handleUserChange = (e) => {
     setSelectedUserId(e.target.value);
-    setUser(null); 
+    setUser(null);
   };
 
   const fetchUserDetails = (e) => {
@@ -36,10 +37,12 @@ const UserDetails = () => {
     }
 
     axios
-      .get(`http://localhost:8080/api/admin/users/${selectedUserId}`)
+      .get(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users/${selectedUserId}`
+      )
       .then((response) => {
         if (response.data) {
-          setUser(response.data); 
+          setUser(response.data);
         } else {
           setError("User not found.");
         }
@@ -83,17 +86,30 @@ const UserDetails = () => {
         {error && <p className="user-details-error">{error}</p>}
       </form>
 
-      
       {user && (
         <div className="user-details-display">
           <h3 className="user-details-title">User Details:</h3>
-          <p className="user-details-info"><strong>User ID:</strong> {user.userId}</p>
-          <p className="user-details-info"><strong>User Name:</strong> {user.userName}</p>
-          <p className="user-details-info"><strong>Role:</strong> {user.userRole}</p>
-          <p className="user-details-info"><strong>Manager ID:</strong> {user.managerId}</p>
-          <p className="user-details-info"><strong>Status:</strong> {user.status}</p>
-          <p className="user-details-info"><strong>Specialization:</strong> {user.specialization}</p>
-          <p className="user-details-info"><strong>Phone No:</strong> {user.phone}</p>
+          <p className="user-details-info">
+            <strong>User ID:</strong> {user.userId}
+          </p>
+          <p className="user-details-info">
+            <strong>User Name:</strong> {user.userName}
+          </p>
+          <p className="user-details-info">
+            <strong>Role:</strong> {user.userRole}
+          </p>
+          <p className="user-details-info">
+            <strong>Manager ID:</strong> {user.managerId}
+          </p>
+          <p className="user-details-info">
+            <strong>Status:</strong> {user.status}
+          </p>
+          <p className="user-details-info">
+            <strong>Specialization:</strong> {user.specialization}
+          </p>
+          <p className="user-details-info">
+            <strong>Phone No:</strong> {user.phone}
+          </p>
         </div>
       )}
     </div>

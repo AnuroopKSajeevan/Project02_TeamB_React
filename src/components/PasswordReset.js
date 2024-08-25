@@ -33,8 +33,7 @@ const PasswordResetPage = () => {
       specialChar: /[@_]/.test(value),
     });
   };
-  const handleConfirmPasswordChange = (e) =>
-    setConfirmPassword(e.target.value);
+  const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
   const validatePassword = (password) => {
     // Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)
@@ -54,7 +53,10 @@ const PasswordResetPage = () => {
     }
 
     axios
-      .post("http://localhost:8080/api/requestPasswordReset", { email })
+      .post(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/requestPasswordReset",
+        { email }
+      )
       .then((response) => {
         alert("An OTP has been sent to your email.");
         setStep(2);
@@ -88,11 +90,14 @@ const PasswordResetPage = () => {
     }
 
     axios
-      .post("http://localhost:8080/api/resetPassword", {
-        token,
-        newPassword,
-        confirmPassword,
-      })
+      .post(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/resetPassword",
+        {
+          token,
+          newPassword,
+          confirmPassword,
+        }
+      )
       .then((response) => {
         alert("Password updated successfully!");
         window.location.href = "/login";
@@ -196,7 +201,9 @@ const PasswordResetPage = () => {
               </div>
 
               <div className="password-requirements">
-                <p><strong>Password Requirements:</strong></p>
+                <p>
+                  <strong>Password Requirements:</strong>
+                </p>
                 <ul>
                   <li className={passwordConstraints.length ? "fulfilled" : ""}>
                     At least 7 characters long
@@ -207,8 +214,13 @@ const PasswordResetPage = () => {
                   <li className={passwordConstraints.digit ? "fulfilled" : ""}>
                     Includes at least one digit
                   </li>
-                  <li className={passwordConstraints.specialChar ? "fulfilled" : ""}>
-                    Contains at least one special character: <strong>@</strong> or <strong>_</strong>
+                  <li
+                    className={
+                      passwordConstraints.specialChar ? "fulfilled" : ""
+                    }
+                  >
+                    Contains at least one special character: <strong>@</strong>{" "}
+                    or <strong>_</strong>
                   </li>
                 </ul>
               </div>

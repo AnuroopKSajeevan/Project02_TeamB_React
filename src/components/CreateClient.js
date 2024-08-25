@@ -16,7 +16,9 @@ const CreateClient = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/clients")
+      .get(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
+      )
       .then((response) => {
         const nextClientId = response.data.length + 1;
         console.log("Next Client ID:", nextClientId);
@@ -44,17 +46,32 @@ const CreateClient = () => {
   const handleClient = (e) => {
     e.preventDefault();
 
-    const { clientId, clientName, clientCompanyName, clientEmail, clientPhone } = formData;
+    const {
+      clientId,
+      clientName,
+      clientCompanyName,
+      clientEmail,
+      clientPhone,
+    } = formData;
 
     console.log("Form data before validation:", formData);
 
-    if (!clientId || !clientName || !clientCompanyName || !clientEmail || !clientPhone) {
+    if (
+      !clientId ||
+      !clientName ||
+      !clientCompanyName ||
+      !clientEmail ||
+      !clientPhone
+    ) {
       alert("Please fill in all the required fields.");
       return;
     }
 
     axios
-      .post("http://localhost:8080/api/clients", formData)
+      .post(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients",
+        formData
+      )
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("Client created successfully!");
@@ -71,7 +88,9 @@ const CreateClient = () => {
     <div className="create-client-form-container">
       <h2 className="create-client-title">Create Client</h2>
       <form id="clientForm" className="create-client-form">
-        <label htmlFor="name" className="create-client-label">Client Name:</label>
+        <label htmlFor="name" className="create-client-label">
+          Client Name:
+        </label>
         <input
           type="text"
           id="clientName"
@@ -83,7 +102,9 @@ const CreateClient = () => {
         />
         <br />
 
-        <label htmlFor="companyName" className="create-client-label">Client Company:</label>
+        <label htmlFor="companyName" className="create-client-label">
+          Client Company:
+        </label>
         <input
           type="text"
           id="clientCompanyName"
@@ -95,7 +116,9 @@ const CreateClient = () => {
         />
         <br />
 
-        <label htmlFor="email" className="create-client-label">Client Email:</label>
+        <label htmlFor="email" className="create-client-label">
+          Client Email:
+        </label>
         <input
           type="email"
           id="clientEmail"
@@ -107,7 +130,9 @@ const CreateClient = () => {
         />
         <br />
 
-        <label htmlFor="phone" className="create-client-label">Phone:</label>
+        <label htmlFor="phone" className="create-client-label">
+          Phone:
+        </label>
         <input
           type="tel"
           id="clientPhone"
@@ -120,7 +145,11 @@ const CreateClient = () => {
         />
         <br />
 
-        <button type="button" className="create-client-button common" onClick={handleClient}>
+        <button
+          type="button"
+          className="create-client-button common"
+          onClick={handleClient}
+        >
           Create Client
         </button>
       </form>

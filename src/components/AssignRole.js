@@ -13,7 +13,9 @@ const AssignRole = () => {
     // Fetch the list of users when the component mounts
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/admin/users");
+        const response = await axios.get(
+          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+        );
         setUsers(response.data); // Assuming response.data is an array of users
       } catch (error) {
         console.error("There was an error fetching users!", error);
@@ -41,9 +43,12 @@ const AssignRole = () => {
     }
 
     axios
-      .put(`http://localhost:8080/api/admin/assignRole/${userid}`, {
-        role,
-      })
+      .put(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/assignRole/${userid}`,
+        {
+          role,
+        }
+      )
       .then((response) => {
         console.log("Role assigned:", response.data);
         alert("Role assigned successfully!");
@@ -62,7 +67,9 @@ const AssignRole = () => {
     <div id="createUserForm" className="assign-role-form-container">
       <h2 className="assign-role-title">Assign Role</h2>
       <form id="userForm" className="assign-role-form" onSubmit={handleSubmit}>
-        <label htmlFor="userid" className="assign-role-label">User:</label>
+        <label htmlFor="userid" className="assign-role-label">
+          User:
+        </label>
         <select
           id="userid"
           name="userid"
@@ -71,16 +78,24 @@ const AssignRole = () => {
           onChange={handleChange}
           required
         >
-          <option value="" className="assign-role-option">Select User</option>
+          <option value="" className="assign-role-option">
+            Select User
+          </option>
           {users.map((user) => (
-            <option key={user.userId} value={user.userId} className="assign-role-option">
+            <option
+              key={user.userId}
+              value={user.userId}
+              className="assign-role-option"
+            >
               {user.userName} ({user.userId})
             </option>
           ))}
         </select>
         <br />
 
-        <label htmlFor="role" className="assign-role-label">Role:</label>
+        <label htmlFor="role" className="assign-role-label">
+          Role:
+        </label>
         <select
           id="role"
           name="role"
@@ -89,10 +104,18 @@ const AssignRole = () => {
           onChange={handleChange}
           required
         >
-          <option value="" className="assign-role-option">Select Role</option>
-          <option value="ADMIN" className="assign-role-option">ADMIN</option>
-          <option value="PROJECT_MANAGER" className="assign-role-option">PROJECT_MANAGER</option>
-          <option value="TEAM_MEMBER" className="assign-role-option">TEAM_MEMBER</option>
+          <option value="" className="assign-role-option">
+            Select Role
+          </option>
+          <option value="ADMIN" className="assign-role-option">
+            ADMIN
+          </option>
+          <option value="PROJECT_MANAGER" className="assign-role-option">
+            PROJECT_MANAGER
+          </option>
+          <option value="TEAM_MEMBER" className="assign-role-option">
+            TEAM_MEMBER
+          </option>
         </select>
         <br />
 

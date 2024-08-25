@@ -15,7 +15,7 @@ const RemoveTask = () => {
       const fetchProjectName = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8080/api/projects/${projectId}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
           );
           setProjectName(response.data.projectName);
         } catch (error) {
