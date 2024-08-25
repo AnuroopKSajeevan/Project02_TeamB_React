@@ -21,7 +21,7 @@ const CreateProject = () => {
   useEffect(() => {
     // Fetch projects to determine the next project ID
     // axios
-    //   .get("http://localhost:8080/api/projects")
+    //   .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects")
     //   .then((response) => {
     //     // const nextProjectId = response.data.length + 1;
     //     setFormData((prevData) => ({
@@ -39,7 +39,9 @@ const CreateProject = () => {
 
     // Fetch clients
     axios
-      .get("http://localhost:8080/api/clients")
+      .get(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
+      )
       .then((response) => {
         console.log("Clients data:", response.data);
         setClients(response.data);
@@ -53,7 +55,9 @@ const CreateProject = () => {
 
     // Fetch managers
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+      )
       .then((response) => {
         const filteredManagers = response.data.filter(
           (user) =>
@@ -69,9 +73,12 @@ const CreateProject = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    
     const updatedValue =
-      name === "clientId" || name === "managerId" ? (value === "" ? "" : Number(value)) : value;
+      name === "clientId" || name === "managerId"
+        ? value === ""
+          ? ""
+          : Number(value)
+        : value;
 
     setFormData({
       ...formData,
@@ -120,7 +127,7 @@ const CreateProject = () => {
 
     axios
       .post(
-        `http://localhost:8080/api/projects?teamName=${encodeURIComponent(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects?teamName=${encodeURIComponent(
           teamName
         )}`,
         projectData

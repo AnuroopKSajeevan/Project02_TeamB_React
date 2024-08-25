@@ -24,7 +24,7 @@ const CreateTask = ({ onCreate }) => {
     const fetchProject = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/projects/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
         );
         const data = await response.json();
         setProject(data);
@@ -35,7 +35,9 @@ const CreateTask = ({ onCreate }) => {
 
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/admin/users");
+        const response = await fetch(
+          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+        );
         const data = await response.json();
         setUsers(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -45,7 +47,9 @@ const CreateTask = ({ onCreate }) => {
 
     const fetchMilestones = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/milestones");
+        const response = await fetch(
+          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones"
+        );
         const data = await response.json();
         setMilestones(Array.isArray(data) ? data : []);
       } catch (err) {

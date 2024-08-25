@@ -9,9 +9,13 @@ const DeactivateUser = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/admin/users")
+      .get(
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
+      )
       .then((response) => {
-        const activeUsers = response.data.filter((user) => user.status === "ACTIVE");
+        const activeUsers = response.data.filter(
+          (user) => user.status === "ACTIVE"
+        );
         setUsers(activeUsers);
       })
       .catch((error) => {
@@ -33,7 +37,10 @@ const DeactivateUser = () => {
     }
 
     axios
-      .put(`http://localhost:8080/api/admin/deactivateUser/${selectedUserId}`, { status: "INACTIVE" })
+      .put(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/deactivateUser/${selectedUserId}`,
+        { status: "INACTIVE" }
+      )
       .then((response) => {
         alert("User deactivated successfully!");
         setSelectedUserId("");
@@ -49,8 +56,14 @@ const DeactivateUser = () => {
   return (
     <div id="deactivateUserForm" className="deactivate-form-container">
       <h2 className="deactivate-title">Deactivate User</h2>
-      <form id="deactivateForm" className="deactivate-form" onSubmit={handleSubmit}>
-        <label htmlFor="userId" className="deactivate-label">Select User:</label>
+      <form
+        id="deactivateForm"
+        className="deactivate-form"
+        onSubmit={handleSubmit}
+      >
+        <label htmlFor="userId" className="deactivate-label">
+          Select User:
+        </label>
         <select
           id="userId"
           name="userId"

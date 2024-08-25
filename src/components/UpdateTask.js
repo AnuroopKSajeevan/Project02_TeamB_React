@@ -28,12 +28,18 @@ const UpdateTask = () => {
           teamResponse,
           milestonesResponse,
         ] = await Promise.all([
-          fetch(`http://localhost:8080/api/projects/${projectId}`),
+          fetch(
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
+          ),
           fetch(
             `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
           ),
-          fetch(`http://localhost:8080/api/teams/project/${projectId}`),
-          fetch("http://localhost:8080/api/milestones"),
+          fetch(
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams/project/${projectId}`
+          ),
+          fetch(
+            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones"
+          ),
         ]);
 
         const projectData = await projectResponse.json();
@@ -47,7 +53,7 @@ const UpdateTask = () => {
 
         if (teamData && teamData.teamId) {
           const usersResponse = await fetch(
-            `http://localhost:8080/api/teamMember?teamId=${teamData.teamId}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?teamId=${teamData.teamId}`
           );
           const teamMembers = await usersResponse.json();
           console.log(teamMembers);
@@ -57,7 +63,9 @@ const UpdateTask = () => {
             console.log(userIds);
             const userDetailsResponses = await Promise.all(
               userIds.map((userId) =>
-                fetch(`http://localhost:8080/api/admin/users/${userId}`)
+                fetch(
+                  `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users/${userId}`
+                )
               )
             );
             const userDetailsData = await Promise.all(

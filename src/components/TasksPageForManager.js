@@ -13,7 +13,7 @@ const TasksPageForManager = () => {
     const fetchTasks = async () => {
       try {
         const projectsResponse = await fetch(
-          `http://localhost:8080/api/projects/by-manager/${user.userId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/by-manager/${user.userId}`
         );
         const projects = await projectsResponse.json();
 

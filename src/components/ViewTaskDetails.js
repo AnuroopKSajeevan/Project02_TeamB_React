@@ -19,7 +19,7 @@ const ViewTaskDetails = () => {
       setError(null);
       try {
         const response = await fetch(
-          `http://localhost:8080/api/projects/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
         );
         if (!response.ok)
           throw new Error(`HTTP error! Status: ${response.status}`);
