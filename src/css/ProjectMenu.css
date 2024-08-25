@@ -1,6 +1,5 @@
 .project-page-container {
   font-family: "Roboto", sans-serif;
-  font-family: "'Roboto Slab', serif";
   background-image: url("../media/backgroundgeneral.png");
   background-color: rgba(255, 255, 255, 0.7);
   height: 100vh;
@@ -27,20 +26,17 @@
 }
 
 .project-head {
-  font-family: "Roboto", sans-serif;
   color: white;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .project-para {
-  font-family: "Roboto", sans-serif;
   margin: 10px 0;
   color: #f9f9f9;
 }
 
 .project-link {
-  font-family: "Roboto", sans-serif;
   color: white;
   text-decoration: none;
   display: block;
@@ -55,20 +51,19 @@
   background: #345b79;
 }
 
-.project-sidebar .btn-primary11 {
-  font-family: "Roboto", sans-serif;
+.button-container {
   margin-top: auto;
+  padding-top: 10px;
+}
+
+.btn-primary11 {
   color: white;
   border: none;
   padding: 10px 20px;
   text-align: center;
   font-size: 16px;
-  padding: 10px 20px;
   width: fit-content;
-  align-self: center;
   background-color: #748d92;
-  color: white;
-  border: none;
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
@@ -82,19 +77,20 @@
   flex-grow: 1;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
   background-image: url("../media/backgroundgeneral.png");
   background-color: rgba(255, 255, 255, 0.7);
-  overflow: hidden;
+  overflow: scroll !important;
 }
 
-.content h2 {
-  margin-top: 0;
+.logout-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
-iframe {
-  width: 100%;
-  height: calc(100vh - 60px);
-  border: none;
+.logout-btn {
+  font-size: 18px;
 }
 
 @media (max-width: 1024px) {
@@ -109,6 +105,13 @@ iframe {
 
   .content {
     padding: 10px;
+    overflow: scroll !important;
+  }
+
+  .logout-container {
+    position: static;
+    text-align: right;
+    margin-bottom: 10px;
   }
 }
 
@@ -125,6 +128,8 @@ iframe {
 
   .content {
     padding: 10px;
+    height: 0%;
+    overflow: scroll !important;
   }
 }
 
@@ -142,5 +147,7 @@ iframe {
 
   .content {
     padding: 10px;
+    height: 0%;
+    overflow: scroll !important;
   }
 }

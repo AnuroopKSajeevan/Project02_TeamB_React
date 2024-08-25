@@ -32,7 +32,7 @@ const TeamMemberPage = () => {
     const fetchDetails = async () => {
       try {
         const tasksResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/user/${user.userId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/user/${user.userId}`
         );
         if (tasksResponse.ok) {
           const tasksData = await tasksResponse.json();
@@ -40,14 +40,14 @@ const TeamMemberPage = () => {
 
           if (tasksData.length > 0) {
             const projectResponse = await fetch(
-              `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${tasksData[0].project.projectId}`
+              `http://localhost:8080/api/projects/${tasksData[0].project.projectId}`
             );
             if (projectResponse.ok) {
               const projectData = await projectResponse.json();
               setProject(projectData);
 
               const clientResponse = await fetch(
-                `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients/${projectData.client.clientId}`
+                `http://localhost:8080/api/clients/${projectData.client.clientId}`
               );
               if (clientResponse.ok) {
                 const clientData = await clientResponse.json();
@@ -76,6 +76,10 @@ const TeamMemberPage = () => {
     navigate(`/team-member/update-task-status`, { state: { user } });
   };
 
+  const handleLogoutClick = () => {
+    navigate("/login");
+  };
+
   if (!user) return null;
 
   return (
@@ -83,6 +87,15 @@ const TeamMemberPage = () => {
       <Row className="mb-5">
         <Col className="welcome">
           <h1>Welcome, {user.userName}!</h1>
+        </Col>
+        <Col className="text-end">
+          <Button
+            variant="danger"
+            onClick={handleLogoutClick}
+            id="logout-button-team"
+          >
+            Logout
+          </Button>
         </Col>
       </Row>
 
@@ -136,7 +149,7 @@ const TeamMemberPage = () => {
               <Card.Text>
                 Client Name: {client.clientName || "N/A"}
                 <br />
-                Company Name: {client.companyName || "N/A"}
+                Company Name: {client.clientCompanyName || "N/A"}
                 <br />
                 Contact: {client.clientEmail || "N/A"}
                 <br />
@@ -149,7 +162,7 @@ const TeamMemberPage = () => {
           <Button
             variant="primary"
             onClick={handleUpdateStatusClick}
-            className="update-milestone-button"
+            id="update-milestone-button"
           >
             Update Task Milestone
           </Button>

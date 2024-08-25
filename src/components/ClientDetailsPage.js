@@ -11,7 +11,7 @@ const ClientDetailsPage = () => {
     const fetchClientDetails = async () => {
       try {
         const projectsResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/by-manager/${user.userId}`
+          `http://localhost:8080/api/projects/by-manager/${user.userId}`
         );
         const projects = await projectsResponse.json();
 
@@ -20,7 +20,7 @@ const ClientDetailsPage = () => {
         );
 
         const clientDetailsPromises = clientIds.map((clientId) =>
-          fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients/${clientId}`).then((res) =>
+          fetch(`http://localhost:8080/api/clients/${clientId}`).then((res) =>
             res.json()
           )
         );

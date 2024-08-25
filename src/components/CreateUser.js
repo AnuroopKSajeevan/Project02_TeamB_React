@@ -11,16 +11,22 @@ const CreateUser = () => {
     password: "",
     phone: "",
     specialization: "",
-    status: "ACTIVE", 
-    dateOfJoining: "", // Added dateOfJoining field
+    status: "ACTIVE",
+    dateOfJoining: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
   const [userCount, setUserCount] = useState(0);
+  const [passwordConstraints, setPasswordConstraints] = useState({
+    length: false,
+    letter: false,
+    digit: false,
+    specialChar: false,
+  });
 
   useEffect(() => {
     axios
-      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
+      .get("http://localhost:8080/api/admin/users")
       .then((response) => {
         const nextUserId = response.data.length + 1;
         console.log("Next User ID:", nextUserId);
@@ -36,28 +42,63 @@ const CreateUser = () => {
   }, [userCount]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    if (name === "password") {
+      // Update password constraints
+      setPasswordConstraints({
+        length: value.length >= 7,
+        letter: /[a-zA-Z]/.test(value),
+        digit: /\d/.test(value),
+        specialChar: /[@_]/.test(value),
+      });
+    }
+  };
+
+  const validatePassword = (password) => {
+    // Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)
+    const isValid =
+      password.length >= 7 &&
+      /[a-zA-Z]/.test(password) &&
+      /\d/.test(password) &&
+      /[@_]/.test(password);
+    return isValid;
   };
 
   const validateAndSubmitForm = () => {
     const { userName, userRole, email, password, phone, specialization, dateOfJoining } =
       formData;
     console.log("Form data before validation:", formData);
+
+    // Check if any field is empty
     if (!userName || !userRole || !email || !password || !phone || !specialization || !dateOfJoining) {
       alert("Please fill in all the required fields.");
       return;
     }
 
+    // Validate password
+    if (!validatePassword(password)) {
+      alert("Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _).");
+      return;
+    }
+
     axios
-      .post("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/registration", formData)
+      .post("http://localhost:8080/api/admin/registration", formData)
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("User created successfully!");
         setUserCount(userCount + 1);
         setFormData(initialFormData);
+        setPasswordConstraints({
+          length: false,
+          letter: false,
+          digit: false,
+          specialChar: false,
+        });
       })
       .catch((error) => {
         console.error("There was an error creating the user!", error);
@@ -95,7 +136,7 @@ const CreateUser = () => {
           <option value="PROJECT_MANAGER" className="registration-form-option">PROJECT_MANAGER</option>
           <option value="TEAM_MEMBER" className="registration-form-option">TEAM_MEMBER</option>
         </select>
-        <br className="form-break" />
+        <br className="registration-form-break" />
 
         <label htmlFor="email" className="registration-form-label">Email:</label>
         <input
@@ -107,7 +148,7 @@ const CreateUser = () => {
           onChange={handleChange}
           required
         />
-        <br className="form-break" />
+        <br className="registration-form-break" />
 
         <label htmlFor="password" className="registration-form-label">Password:</label>
         <input
@@ -120,6 +161,24 @@ const CreateUser = () => {
           required
         />
         <br className="registration-form-break" />
+
+        <div className="password-requirements">
+          <p><strong>Password Requirements:</strong></p>
+          <ul>
+            <li className={passwordConstraints.length ? "fulfilled" : ""}>
+              At least 7 characters long
+            </li>
+            <li className={passwordConstraints.letter ? "fulfilled" : ""}>
+              Includes at least one letter
+            </li>
+            <li className={passwordConstraints.digit ? "fulfilled" : ""}>
+              Includes at least one digit
+            </li>
+            <li className={passwordConstraints.specialChar ? "fulfilled" : ""}>
+              Contains at least one special character: <strong>@</strong> or <strong>_</strong>
+            </li>
+          </ul>
+        </div>
 
         <label htmlFor="phone" className="registration-form-label">Phone:</label>
         <input

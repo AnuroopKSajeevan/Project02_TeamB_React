@@ -11,7 +11,7 @@ const UserDetailsPage = () => {
     const fetchUserDetails = async () => {
       try {
         const usersResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users`
+          `http://localhost:8080/api/admin/users`
         );
         const allUsers = await usersResponse.json();
 

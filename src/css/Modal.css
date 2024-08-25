@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal-overlay-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,12 +13,12 @@
   pointer-events: none;
 }
 
-.modal-overlay.show {
+.modal-overlay-modal.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-.modal-content {
+.modal-content-modal {
   background: white;
   padding: 20px;
   border-radius: 12px;
@@ -31,25 +31,25 @@
   opacity: 0;
 }
 
-.modal-content.show {
+.modal-content-modal.show {
   opacity: 1;
   transform: scale(1);
 }
 
-.modal-content h2 {
+.modal-content-modal h2 {
   font-size: 1.5rem;
   margin-bottom: 15px;
 }
 
-.modal-content p {
+.modal-content-modal p {
   margin-bottom: 20px;
 }
 
-.modal-buttons {
+.modal-buttons-modal {
   margin-top: 20px;
 }
 
-.modal-buttons button {
+.modal-buttons-modal button {
   border: none;
   padding: 10px 20px;
   font-size: 1rem;
@@ -59,20 +59,20 @@
   margin: 0 10px;
 }
 
-.modal-buttons button.btn-confirm {
+.modal-buttons-modal button.btn-confirm-modal {
   background-color: #212a31;
   color: white;
 }
 
-.modal-buttons button.btn-confirm:hover {
+.modal-buttons-modal button.btn-confirm-modal:hover {
   background-color: #1b1e23;
 }
 
-.modal-buttons button.btn-cancel {
+.modal-buttons-modal button.btn-cancel-modal {
   background-color: #6c757d;
   color: white;
 }
 
-.modal-buttons button.btn-cancel:hover {
+.modal-buttons-modal button.btn-cancel-modal:hover {
   background-color: #5a6268;
 }

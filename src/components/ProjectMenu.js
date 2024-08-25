@@ -1,9 +1,14 @@
 import React from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
 import "../css/ProjectMenu.css";
 
 const ProjectMenu = () => {
   const { projectId } = useParams();
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="project-page-container">
@@ -47,11 +52,18 @@ const ProjectMenu = () => {
           <Link className="project-link" to={`view-task-details/${projectId}`}>
             View Task Details
           </Link>
-          <Link className="btn-primary11" to="/login">
-            Logout
-          </Link>
+          <div className="button-container">
+            <button className="btn-primary11" onClick={handleGoBack}>
+              Go Back
+            </button>
+          </div>
         </div>
         <div className="content" id="content">
+          <div className="logout-container">
+            <Link className="btn-primary11 logout-btn" to="/login">
+              Logout
+            </Link>
+          </div>
           <Outlet />
         </div>
       </div>

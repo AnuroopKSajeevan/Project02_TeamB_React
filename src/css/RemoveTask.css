@@ -33,6 +33,11 @@
   justify-content: space-between;
   text-align: center;
   height: 250px;
+  transition: transform 0.3s ease;
+}
+
+.task-card-remove:hover {
+  transform: scale(1.05);
 }
 
 .task-detail-remove {

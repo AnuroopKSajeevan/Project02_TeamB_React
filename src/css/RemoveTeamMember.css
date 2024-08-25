@@ -97,3 +97,10 @@
     flex-direction: column;
   }
 }
+
+@media (max-width: 486px) {
+  .remove-team-member-container {
+    /* margin-top: 5%; */
+    min-height: 0;
+  }
+}

@@ -16,7 +16,7 @@ const ProjectClientDetails = () => {
         setLoading(true);
 
         const projectResponse = await axios.get(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
+          `http://localhost:8080/api/projects/${projectId}`
         );
 
         if (projectResponse.data && projectResponse.data.client) {

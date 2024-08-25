@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import logopassword from "../media/passwordreset.png";
 import "../css/PasswordReset.css";
@@ -10,11 +10,41 @@ const PasswordResetPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [step, setStep] = useState(1);
+  const [timer, setTimer] = useState(120);
+  const [otpExpired, setOtpExpired] = useState(false);
+  const [passwordConstraints, setPasswordConstraints] = useState({
+    length: false,
+    letter: false,
+    digit: false,
+    specialChar: false,
+  });
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleTokenChange = (e) => setToken(e.target.value);
-  const handleNewPasswordChange = (e) => setNewPassword(e.target.value);
-  const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
+  const handleNewPasswordChange = (e) => {
+    const value = e.target.value;
+    setNewPassword(value);
+
+    // Update password constraints
+    setPasswordConstraints({
+      length: value.length >= 7,
+      letter: /[a-zA-Z]/.test(value),
+      digit: /\d/.test(value),
+      specialChar: /[@_]/.test(value),
+    });
+  };
+  const handleConfirmPasswordChange = (e) =>
+    setConfirmPassword(e.target.value);
+
+  const validatePassword = (password) => {
+    // Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)
+    return (
+      password.length >= 7 &&
+      /[a-zA-Z]/.test(password) &&
+      /\d/.test(password) &&
+      /[@_]/.test(password)
+    );
+  };
 
   const handleRequestReset = (e) => {
     e.preventDefault();
@@ -24,13 +54,17 @@ const PasswordResetPage = () => {
     }
 
     axios
-      .post("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/requestPasswordReset", { email })
+      .post("http://localhost:8080/api/requestPasswordReset", { email })
       .then((response) => {
-        alert("A token has been sent to your email.");
+        alert("An OTP has been sent to your email.");
         setStep(2);
+        setTimer(120);
+        setOtpExpired(false);
       })
       .catch((error) => {
-        setErrorMessage("There was an error requesting the password reset!");
+        setErrorMessage(
+          "Error requesting password reset—this email may not be registered yet."
+        );
       });
   };
 
@@ -46,8 +80,15 @@ const PasswordResetPage = () => {
       return;
     }
 
+    if (!validatePassword(newPassword)) {
+      setErrorMessage(
+        "Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)."
+      );
+      return;
+    }
+
     axios
-      .post("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/resetPassword", {
+      .post("http://localhost:8080/api/resetPassword", {
         token,
         newPassword,
         confirmPassword,
@@ -59,6 +100,24 @@ const PasswordResetPage = () => {
       .catch((error) => {
         setErrorMessage("There was an error resetting the password!");
       });
+  };
+
+  useEffect(() => {
+    if (step === 2 && timer > 0) {
+      const intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    } else if (timer === 0) {
+      setOtpExpired(true);
+    }
+  }, [step, timer]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   return (
@@ -90,7 +149,7 @@ const PasswordResetPage = () => {
               )}
               <div className="button-container-pw">
                 <button type="submit" className="btn reset-button">
-                  Get Token
+                  Get OTP
                 </button>
               </div>
             </form>
@@ -98,7 +157,7 @@ const PasswordResetPage = () => {
             <form id="reset-password-form" onSubmit={handleResetPassword}>
               <div className="mb-3">
                 <label htmlFor="exampleInputToken1" className="form-label-pw">
-                  Token
+                  OTP
                 </label>
                 <input
                   type="text"
@@ -107,7 +166,17 @@ const PasswordResetPage = () => {
                   value={token}
                   onChange={handleTokenChange}
                   required
+                  disabled={otpExpired}
                 />
+              </div>
+              <div className="otp-timer">
+                {otpExpired ? (
+                  <div className="error-message">Your OTP has expired.</div>
+                ) : (
+                  <div className="timer">
+                    Your OTP expires in {formatTime(timer)}
+                  </div>
+                )}
               </div>
               <div className="mb-3">
                 <label
@@ -125,12 +194,31 @@ const PasswordResetPage = () => {
                   required
                 />
               </div>
+
+              <div className="password-requirements">
+                <p><strong>Password Requirements:</strong></p>
+                <ul>
+                  <li className={passwordConstraints.length ? "fulfilled" : ""}>
+                    At least 7 characters long
+                  </li>
+                  <li className={passwordConstraints.letter ? "fulfilled" : ""}>
+                    Includes at least one letter
+                  </li>
+                  <li className={passwordConstraints.digit ? "fulfilled" : ""}>
+                    Includes at least one digit
+                  </li>
+                  <li className={passwordConstraints.specialChar ? "fulfilled" : ""}>
+                    Contains at least one special character: <strong>@</strong> or <strong>_</strong>
+                  </li>
+                </ul>
+              </div>
+
               <div className="mb-3">
                 <label
                   htmlFor="exampleInputConfirmPassword1"
                   className="form-label-pw"
                 >
-                  Confirm New Password
+                  Confirm Password
                 </label>
                 <input
                   type="password"
