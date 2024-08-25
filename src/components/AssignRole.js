@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/AssignRole.css";
 
@@ -7,6 +7,21 @@ const AssignRole = () => {
     userid: "",
     role: "",
   });
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    // Fetch the list of users when the component mounts
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/admin/users");
+        setUsers(response.data); // Assuming response.data is an array of users
+      } catch (error) {
+        console.error("There was an error fetching users!", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -26,7 +41,7 @@ const AssignRole = () => {
     }
 
     axios
-      .put(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/assignRole/${userid}`, {
+      .put(`http://localhost:8080/api/admin/assignRole/${userid}`, {
         role,
       })
       .then((response) => {
@@ -47,16 +62,22 @@ const AssignRole = () => {
     <div id="createUserForm" className="assign-role-form-container">
       <h2 className="assign-role-title">Assign Role</h2>
       <form id="userForm" className="assign-role-form" onSubmit={handleSubmit}>
-        <label htmlFor="userid" className="assign-role-label">UserID:</label>
-        <input
-          type="number"
+        <label htmlFor="userid" className="assign-role-label">User:</label>
+        <select
           id="userid"
           name="userid"
-          className="assign-role-input"
+          className="assign-role-select"
           value={formData.userid}
           onChange={handleChange}
           required
-        />
+        >
+          <option value="" className="assign-role-option">Select User</option>
+          {users.map((user) => (
+            <option key={user.userId} value={user.userId} className="assign-role-option">
+              {user.userName} ({user.userId})
+            </option>
+          ))}
+        </select>
         <br />
 
         <label htmlFor="role" className="assign-role-label">Role:</label>

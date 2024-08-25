@@ -98,3 +98,14 @@
     flex-direction: column;
   }
 }
+
+@media (max-width: 486px) {
+  .add-team-member-container {
+    min-height: 3%;
+    height: -webkit-fill-available;
+    height: 400px;
+  }
+  .add-team-member-panel {
+    height: 350px;
+  }
+}

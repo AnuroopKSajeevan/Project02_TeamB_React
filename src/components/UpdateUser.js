@@ -15,7 +15,7 @@ const UpdateUser = () => {
 
   useEffect(() => {
     axios
-      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
+      .get("http://localhost:8080/api/admin/users")
       .then((response) => {
         setUsers(response.data);
       })
@@ -42,7 +42,7 @@ const UpdateUser = () => {
     }
 
     axios
-      .put(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/updateUser/${user_id}`, {
+      .put(`http://localhost:8080/api/admin/updateUser/${user_id}`, {
         ...formData,
         user_id: parseInt(user_id, 10),
         managerid: parseInt(managerid, 10),
@@ -90,7 +90,7 @@ const UpdateUser = () => {
         <br />
 
         <label htmlFor="role" className="update-form-label">
-          Role:
+          Current Role:
         </label>
         <select
           id="role"

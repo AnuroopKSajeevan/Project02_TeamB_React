@@ -15,7 +15,7 @@ const RemoveTask = () => {
       const fetchProjectName = async () => {
         try {
           const response = await axios.get(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
+            `http://localhost:8080/api/projects/${projectId}`
           );
           setProjectName(response.data.projectName);
         } catch (error) {
@@ -27,7 +27,7 @@ const RemoveTask = () => {
       const fetchTasks = async () => {
         try {
           const response = await axios.get(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
           );
           setTasks(response.data);
           setLoading(false);
@@ -45,7 +45,9 @@ const RemoveTask = () => {
 
   const handleRemoveTask = async (taskId) => {
     try {
-      await axios.delete(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${taskId}`);
+      await axios.delete(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/${taskId}`
+      );
       setTasks(tasks.filter((task) => task.taskId !== taskId));
       alert(`Task with ID ${taskId} has been removed.`);
     } catch (error) {

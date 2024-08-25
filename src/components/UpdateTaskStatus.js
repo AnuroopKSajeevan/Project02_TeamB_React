@@ -95,8 +95,10 @@ const UpdateTaskStatus = () => {
     const fetchTasksAndMilestones = async () => {
       try {
         const [tasksResponse, milestonesResponse] = await Promise.all([
-          fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/user/${user.userId}`),
-          fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones`),
+          fetch(
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/user/${user.userId}`
+          ),
+          fetch(`http://localhost:8080/api/milestones`),
         ]);
 
         if (tasksResponse.ok && milestonesResponse.ok) {
@@ -126,13 +128,16 @@ const UpdateTaskStatus = () => {
     setTasks(updatedTasks);
 
     try {
-      await fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${task.taskId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ milestoneId: newMilestone.milestoneId }),
-      });
+      await fetch(
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/${task.taskId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ milestoneId: newMilestone.milestoneId }),
+        }
+      );
     } catch (error) {
       setError(
         "An error occurred while updating task milestone: " + error.message
@@ -142,7 +147,7 @@ const UpdateTaskStatus = () => {
 
   const handleCreateMilestone = async () => {
     try {
-      const response = await fetch(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones`, {
+      const response = await fetch(`http://localhost:8080/api/milestones`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -170,7 +175,7 @@ const UpdateTaskStatus = () => {
   const updateMilestoneName = async (milestoneId, newName, newDescription) => {
     try {
       const response = await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones/${milestoneId}`,
+        `http://localhost:8080/api/milestones/${milestoneId}`,
         {
           method: "PUT",
           headers: {
@@ -231,9 +236,12 @@ const UpdateTaskStatus = () => {
 
   return (
     <Container className="update-task-status all-status">
+      <Button id="gobackteam" variant="secondary" onClick={() => navigate(-1)}>
+        Go Back
+      </Button>
       <Row className="top-row-status">
         <Col>
-          <h1>Update Task Milestone</h1>
+          <h1 id="updatetaskhead">Update Task Milestone</h1>
           <p>Drag and drop tasks to update their milestone.</p>
         </Col>
       </Row>

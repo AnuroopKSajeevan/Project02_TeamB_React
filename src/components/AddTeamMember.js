@@ -13,7 +13,7 @@ const AddTeamMember = () => {
 
   useEffect(() => {
     axios
-      .get(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams/project/${projectId}`)
+      .get(`http://localhost:8080/api/teams/project/${projectId}`)
       .then((response) => {
         const team = response.data;
         if (team) {
@@ -32,7 +32,7 @@ const AddTeamMember = () => {
       });
 
     axios
-      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
+      .get("http://localhost:8080/api/admin/users")
       .then((response) => {
         const filteredUsers = response.data.filter(
           (user) =>
@@ -58,7 +58,7 @@ const AddTeamMember = () => {
     });
 
     axios
-      .post(`https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?${params.toString()}`)
+      .post(`http://localhost:8080/api/teamMember?${params.toString()}`)
       .then((response) => {
         console.log("Team member added successfully:", response.data);
         setUserId("");

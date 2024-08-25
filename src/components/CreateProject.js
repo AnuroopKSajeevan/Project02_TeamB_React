@@ -4,13 +4,12 @@ import "../css/CreateProject.css";
 
 const CreateProject = () => {
   const initialFormData = {
-    projectId: null,
     projectName: "",
     projectDescription: "",
     startDate: "",
     endDate: "",
-    client: {},
-    managerId: {},
+    clientId: null,
+    managerId: null,
     teamName: "",
   };
 
@@ -20,27 +19,29 @@ const CreateProject = () => {
   const [managers, setManagers] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects")
-      .then((response) => {
-        const nextProjectId = response.data.length + 1;
-        console.log("Next Project ID:", nextProjectId);
-        setFormData((prevData) => ({
-          ...prevData,
-          projectId: nextProjectId,
-        }));
-        setProjectCount(response.data.length);
-      })
-      .catch((error) => {
-        console.error(
-          "There was an error fetching the list of projects!",
-          error
-        );
-      });
+    // Fetch projects to determine the next project ID
+    // axios
+    //   .get("http://localhost:8080/api/projects")
+    //   .then((response) => {
+    //     // const nextProjectId = response.data.length + 1;
+    //     setFormData((prevData) => ({
+    //       ...prevData,
+    //       projectId: nextProjectId,
+    //     }));
+    //     setProjectCount(response.data.length);
+    //   })
+    //   .catch((error) => {
+    //     console.error(
+    //       "There was an error fetching the list of projects!",
+    //       error
+    //     );
+    //   });
 
+    // Fetch clients
     axios
-      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients")
+      .get("http://localhost:8080/api/clients")
       .then((response) => {
+        console.log("Clients data:", response.data);
         setClients(response.data);
       })
       .catch((error) => {
@@ -50,8 +51,9 @@ const CreateProject = () => {
         );
       });
 
+    // Fetch managers
     axios
-      .get("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users")
+      .get("http://localhost:8080/api/admin/users")
       .then((response) => {
         const filteredManagers = response.data.filter(
           (user) =>
@@ -66,12 +68,14 @@ const CreateProject = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    
+    const updatedValue =
+      name === "clientId" || name === "managerId" ? (value === "" ? "" : Number(value)) : value;
+
     setFormData({
       ...formData,
-      [name]:
-        name === "projectId" || name === "clientId" || name === "managerId"
-          ? Number(value)
-          : value,
+      [name]: updatedValue,
     });
   };
 
@@ -90,15 +94,14 @@ const CreateProject = () => {
     } = formData;
 
     console.log("Form data before validation:", formData);
-    console.log("Manager ID in formData:", managerId);
     if (
       projectId === null ||
       !projectName ||
       !projectDescription ||
       !startDate ||
       !endDate ||
-      clientId === null ||
-      managerId === null ||
+      clientId === "" ||
+      managerId === "" ||
       !teamName
     ) {
       alert("Please fill in all the required fields.");
@@ -106,32 +109,29 @@ const CreateProject = () => {
     }
 
     const projectData = {
-      projectId,
       projectName,
       description: projectDescription,
       startDate,
       endDate,
-      client: { clientId },
-      manager: { userId: managerId },
+      client: { clientId: Number(clientId) },
+      manager: { userId: Number(managerId) },
       percentageLeft: 0.0,
     };
 
     axios
       .post(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects?teamName=${encodeURIComponent(
+        `http://localhost:8080/api/projects?teamName=${encodeURIComponent(
           teamName
         )}`,
         projectData
       )
       .then((response) => {
-        console.log(projectData);
         console.log("Form data submitted:", response.data);
         alert("Project created successfully!");
         setProjectCount(projectCount + 1);
         setFormData(initialFormData);
       })
       .catch((error) => {
-        console.log(projectData);
         console.error("Error details:", error.response.data);
         alert("There was an error creating the project!");
       });
@@ -162,7 +162,7 @@ const CreateProject = () => {
           id="clientId"
           name="clientId"
           className="create-project-input"
-          value={formData.client || ""}
+          value={formData.clientId || ""}
           onChange={handleChange}
           required
         >
@@ -182,7 +182,7 @@ const CreateProject = () => {
           id="managerId"
           name="managerId"
           className="create-project-input"
-          value={formData.managerId || ""}
+          value={formData.managerId}
           onChange={handleChange}
           required
         >

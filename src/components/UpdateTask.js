@@ -20,62 +20,74 @@ const UpdateTask = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProject = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
-        );
-        const data = await response.json();
-        setProject(data);
+        const [
+          projectResponse,
+          tasksResponse,
+          teamResponse,
+          milestonesResponse,
+        ] = await Promise.all([
+          fetch(`http://localhost:8080/api/projects/${projectId}`),
+          fetch(
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
+          ),
+          fetch(`http://localhost:8080/api/teams/project/${projectId}`),
+          fetch("http://localhost:8080/api/milestones"),
+        ]);
+
+        const projectData = await projectResponse.json();
+        const tasksData = await tasksResponse.json();
+        const teamData = await teamResponse.json();
+        const milestonesData = await milestonesResponse.json();
+
+        setProject(projectData);
+        setTasks(Array.isArray(tasksData) ? tasksData : []);
+        setMilestones(Array.isArray(milestonesData) ? milestonesData : []);
+
+        if (teamData && teamData.teamId) {
+          const usersResponse = await fetch(
+            `http://localhost:8080/api/teamMember?teamId=${teamData.teamId}`
+          );
+          const teamMembers = await usersResponse.json();
+          console.log(teamMembers);
+
+          if (Array.isArray(teamMembers)) {
+            const userIds = teamMembers.map((member) => member.user.userId);
+            console.log(userIds);
+            const userDetailsResponses = await Promise.all(
+              userIds.map((userId) =>
+                fetch(`http://localhost:8080/api/admin/users/${userId}`)
+              )
+            );
+            const userDetailsData = await Promise.all(
+              userDetailsResponses.map((res) => res.json())
+            );
+            setUsers(userDetailsData);
+          }
+        } else {
+          console.error("No team data found for the project.");
+        }
       } catch (err) {
-        console.error("Failed to fetch project:", err);
+        console.error("Failed to fetch data:", err);
+        setError("An error occurred while fetching data.");
       }
     };
 
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
-        );
-        const data = await response.json();
-        setTasks(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error("Failed to fetch tasks:", err);
-      }
-    };
-
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users");
-        const data = await response.json();
-        setUsers(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error("Failed to fetch users:", err);
-      }
-    };
-
-    const fetchMilestones = async () => {
-      try {
-        const response = await fetch("https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones");
-        const data = await response.json();
-        setMilestones(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error("Failed to fetch milestones:", err);
-      }
-    };
-
-    fetchProject();
-    fetchTasks();
-    fetchUsers();
-    fetchMilestones();
+    fetchData();
   }, [projectId]);
 
   useEffect(() => {
-    if (users.length > 0) {
-      const filtered = users.filter((user) => user.userRole === "TEAM_MEMBER");
+    if (tasks.length > 0) {
+      const assignedUserIds = [
+        ...new Set(tasks.map((task) => task.user?.userId)),
+      ];
+      const filtered = users.filter((user) =>
+        assignedUserIds.includes(user.userId)
+      );
       setFilteredUsers(filtered);
     }
-  }, [users]);
+  }, [tasks, users]);
 
   useEffect(() => {
     if (selectedTask) {
@@ -111,7 +123,7 @@ const UpdateTask = () => {
       };
 
       const response = await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/manager/${selectedTask}`,
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/updateUser?taskId=${selectedTask}&userId=${taskDetails.userId}&projectId=${projectId}`,
         {
           method: "PUT",
           headers: {
@@ -123,7 +135,6 @@ const UpdateTask = () => {
 
       if (!response.ok) throw new Error("Failed to update task");
 
-      const result = await response.json();
       alert("Task updated successfully");
     } catch (err) {
       setError(err.message);
@@ -202,9 +213,9 @@ const UpdateTask = () => {
                 className="field-group-select"
               >
                 <option value="">Select User</option>
-                {filteredUsers.map((user) => (
+                {users.map((user) => (
                   <option key={user.userId} value={user.userId}>
-                    {user.userName}
+                    {user.userName} (ID: {user.userId})
                   </option>
                 ))}
               </select>
@@ -234,7 +245,7 @@ const UpdateTask = () => {
             <button type="submit" className="submit-button" disabled={loading}>
               {loading ? "Updating..." : "Update Task"}
             </button>
-            {/* {error && <p className="error-message">{error}</p>} */}
+            {error && <p className="error-message">{error}</p>}
           </>
         )}
       </form>
