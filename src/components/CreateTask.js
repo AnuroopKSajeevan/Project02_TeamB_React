@@ -97,7 +97,7 @@ const CreateTask = ({ onCreate }) => {
       }
 
       const response = await fetch(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net",
+        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks",
         {
           method: "POST",
           headers: {

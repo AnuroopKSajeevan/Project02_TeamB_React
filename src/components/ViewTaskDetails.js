@@ -38,7 +38,7 @@ const ViewTaskDetails = () => {
       setError(null);
       try {
         const response = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
         );
         if (!response.ok)
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -63,7 +63,7 @@ const ViewTaskDetails = () => {
         setError(null);
         try {
           const taskResponse = await fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/${selectedTask}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${selectedTask}`
           );
           if (!taskResponse.ok)
             throw new Error(`HTTP error! Status: ${taskResponse.status}`);
@@ -73,7 +73,7 @@ const ViewTaskDetails = () => {
           setUserName(taskData.user?.userName || "N/A");
 
           const timestampResponse = await fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/${selectedTask}/timestamps`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${selectedTask}/timestamps`
           );
           if (!timestampResponse.ok)
             throw new Error(`HTTP error! Status: ${timestampResponse.status}`);

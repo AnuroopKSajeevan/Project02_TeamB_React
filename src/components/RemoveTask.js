@@ -27,7 +27,7 @@ const RemoveTask = () => {
       const fetchTasks = async () => {
         try {
           const response = await axios.get(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
           );
           setTasks(response.data);
           setLoading(false);
@@ -46,7 +46,7 @@ const RemoveTask = () => {
   const handleRemoveTask = async (taskId) => {
     try {
       await axios.delete(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/${taskId}`
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${taskId}`
       );
       setTasks(tasks.filter((task) => task.taskId !== taskId));
       alert(`Task with ID ${taskId} has been removed.`);
