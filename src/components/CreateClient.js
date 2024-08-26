@@ -14,27 +14,27 @@ const CreateClient = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [clientCount, setClientCount] = useState(0);
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
-      )
-      .then((response) => {
-        const nextClientId = response.data.length + 1;
-        console.log("Next Client ID:", nextClientId);
-        setFormData((prevData) => ({
-          ...prevData,
-          clientId: nextClientId,
-        }));
-        setClientCount(response.data.length);
-      })
-      .catch((error) => {
-        console.error(
-          "There was an error fetching the list of clients!",
-          error
-        );
-      });
-  }, [clientCount]);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
+  //     )
+  //     .then((response) => {
+  //       const nextClientId = response.data.length + 1;
+  //       console.log("Next Client ID:", nextClientId);
+  //       setFormData((prevData) => ({
+  //         ...prevData,
+  //         clientId: nextClientId,
+  //       }));
+  //       setClientCount(response.data.length);
+  //     })
+  //     .catch((error) => {
+  //       console.error(
+  //         "There was an error fetching the list of clients!",
+  //         error
+  //       );
+  //     });
+  // }, [clientCount]);
 
   const handleChange = (e) => {
     setFormData({
@@ -46,23 +46,12 @@ const CreateClient = () => {
   const handleClient = (e) => {
     e.preventDefault();
 
-    const {
-      clientId,
-      clientName,
-      clientCompanyName,
-      clientEmail,
-      clientPhone,
-    } = formData;
+    const { clientName, clientCompanyName, clientEmail, clientPhone } =
+      formData;
 
     console.log("Form data before validation:", formData);
 
-    if (
-      !clientId ||
-      !clientName ||
-      !clientCompanyName ||
-      !clientEmail ||
-      !clientPhone
-    ) {
+    if (!clientName || !clientCompanyName || !clientEmail || !clientPhone) {
       alert("Please fill in all the required fields.");
       return;
     }
@@ -75,7 +64,6 @@ const CreateClient = () => {
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("Client created successfully!");
-        setClientCount(clientCount + 1);
         setFormData(initialFormData);
       })
       .catch((error) => {
