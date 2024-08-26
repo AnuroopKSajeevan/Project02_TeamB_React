@@ -4,7 +4,7 @@ import "../css/CreateClient.css";
 
 const CreateClient = () => {
   const initialFormData = {
-    clientId: "",
+    clientId: "", // This will be excluded from the payload
     clientName: "",
     clientCompanyName: "",
     clientEmail: "",
@@ -13,28 +13,6 @@ const CreateClient = () => {
 
   const [formData, setFormData] = useState(initialFormData);
   const [clientCount, setClientCount] = useState(0);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
-  //     )
-  //     .then((response) => {
-  //       const nextClientId = response.data.length + 1;
-  //       console.log("Next Client ID:", nextClientId);
-  //       setFormData((prevData) => ({
-  //         ...prevData,
-  //         clientId: nextClientId,
-  //       }));
-  //       setClientCount(response.data.length);
-  //     })
-  //     .catch((error) => {
-  //       console.error(
-  //         "There was an error fetching the list of clients!",
-  //         error
-  //       );
-  //     });
-  // }, [clientCount]);
 
   const handleChange = (e) => {
     setFormData({
@@ -56,10 +34,13 @@ const CreateClient = () => {
       return;
     }
 
+    // Create a new object excluding clientId
+    const { clientId, ...payload } = formData;
+
     axios
       .post(
         "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients",
-        formData
+        payload // Send the payload without clientId
       )
       .then((response) => {
         console.log("Form data submitted:", response.data);
