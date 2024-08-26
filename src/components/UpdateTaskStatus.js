@@ -96,7 +96,7 @@ const UpdateTaskStatus = () => {
       try {
         const [tasksResponse, milestonesResponse] = await Promise.all([
           fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/user/${user.userId}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/user/${user.userId}`
           ),
           fetch(
             `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones`
@@ -131,7 +131,7 @@ const UpdateTaskStatus = () => {
 
     try {
       await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/${task.taskId}`,
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${task.taskId}`,
         {
           method: "PUT",
           headers: {

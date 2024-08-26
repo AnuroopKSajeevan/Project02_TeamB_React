@@ -29,7 +29,7 @@ const Dashboard = () => {
               "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
             ),
             fetch(
-              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net"
+              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks"
             ),
             fetch(
               "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"

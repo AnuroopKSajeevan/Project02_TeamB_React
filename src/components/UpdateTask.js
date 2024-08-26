@@ -32,7 +32,7 @@ const UpdateTask = () => {
             `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
           ),
           fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
           ),
           fetch(
             `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams/project/${projectId}`
@@ -131,7 +131,7 @@ const UpdateTask = () => {
       };
 
       const response = await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/updateUser?taskId=${selectedTask}&userId=${taskDetails.userId}&projectId=${projectId}`,
+        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/updateUser?taskId=${selectedTask}&userId=${taskDetails.userId}&projectId=${projectId}`,
         {
           method: "PUT",
           headers: {

@@ -32,7 +32,7 @@ const TeamMemberPage = () => {
     const fetchDetails = async () => {
       try {
         const tasksResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/user/${user.userId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/user/${user.userId}`
         );
         if (tasksResponse.ok) {
           const tasksData = await tasksResponse.json();

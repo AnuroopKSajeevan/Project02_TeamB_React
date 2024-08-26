@@ -29,7 +29,7 @@ const TaskPieChart = () => {
         setMilestoneNames(milestoneNames);
 
         return axios.get(
-          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net"
+          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks"
         );
       })
       .then((response) => {

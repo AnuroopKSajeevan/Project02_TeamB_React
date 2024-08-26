@@ -40,7 +40,7 @@ const TaskMilestoneChart = () => {
     const fetchTasks = async () => {
       try {
         const tasksResponse = await axios.get(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
+          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
         );
         setTaskData(tasksResponse.data);
       } catch (error) {

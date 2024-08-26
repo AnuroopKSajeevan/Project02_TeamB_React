@@ -21,7 +21,7 @@ const TasksPageForManager = () => {
 
         const tasksPromises = projectIds.map((projectId) =>
           fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/project/${projectId}`
+            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/project/${projectId}`
           ).then((res) => res.json())
         );
 
